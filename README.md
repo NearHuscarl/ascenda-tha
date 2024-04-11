@@ -28,6 +28,7 @@ yarn test
 
 - [ ] Responsive layout?
 - [ ] Setup basic CI/CD workflow
+- [ ] It's not sure whether there is a list of hardcoded currencies that should be rounded to the nearest 100-dollars or can we programmatically find out which ones need to be rounded that way? Maybe detecting the max number of decimal places (e.g. `new Intl.NumberFormat(undefined, { style: 'currency', currency: currency }).resolvedOptions().maximumFractionDigits;`). Anyway it's too late to implement this now.
 
 ## How many hours you actually spent finishing the assignment?
 
