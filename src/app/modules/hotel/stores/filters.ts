@@ -6,7 +6,7 @@ export type TFilterStore = {
   setCurrency: (currency: string) => void;
 };
 
-export const useFilterStore = create<TFilterStore>(
+export const useFilterStore = create<TFilterStore>()(
   persist(
     (set) => ({
       currency: "USD",
