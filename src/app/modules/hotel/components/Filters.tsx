@@ -9,20 +9,23 @@ export const Filters = () => {
   const { data: currencies = [] } = useCurrencies();
 
   return (
-    <div className="bg-white p-3 rounded w-full shadow">
-      <TextField
-        style={{ width: 100 }}
-        select
-        value={currency}
-        onChange={(e) => setCurrency(e.target.value)}
-        fullWidth
-      >
-        {currencies.map((value) => (
-          <MenuItem key={value} value={value}>
-            {value}
-          </MenuItem>
-        ))}
-      </TextField>
+    <div className="bg-white p-4 rounded w-full shadow">
+      {currencies.length > 0 && (
+        <TextField
+          style={{ width: 100 }}
+          select
+          label="Currency"
+          value={currency}
+          onChange={(e) => setCurrency(e.target.value)}
+          fullWidth
+        >
+          {currencies.map((value) => (
+            <MenuItem key={value} value={value}>
+              {value}
+            </MenuItem>
+          ))}
+        </TextField>
+      )}
     </div>
   );
 };

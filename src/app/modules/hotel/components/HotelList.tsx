@@ -6,7 +6,7 @@ export function HotelList() {
   const currency = useFilterStore((state) => state.currency);
   const { data: hotels = [] } = useHotels({ currency });
 
-  if (!hotels) {
+  if (!hotels.length) {
     return <div>Loading...</div>;
   }
 

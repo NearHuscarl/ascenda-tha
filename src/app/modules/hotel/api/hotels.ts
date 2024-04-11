@@ -1,4 +1,4 @@
-import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { BASE_URL } from "../config";
 import { TCurrency } from "./currencies";
 import { getCurrencyFormatter } from "app/helpers/currency";
@@ -46,8 +46,7 @@ export type THotel = {
 
 const sortSymbol = Symbol("sort");
 
-export const getHotels = async (context: QueryFunctionContext) => {
-  const currency = context.queryKey[1] as TCurrency;
+export const getHotels = async (currency: TCurrency) => {
   const [hotels, prices] = await Promise.all([
     getHotelListings(),
     getPrices(currency),
@@ -56,13 +55,6 @@ export const getHotels = async (context: QueryFunctionContext) => {
     prices.map((price) => [price.id, price])
   );
   const formatter = getCurrencyFormatter(currency);
-  // const formatter = new Intl.NumberFormat(
-  //   currencyToLocale[currency as keyof typeof currencyToLocale],
-  //   {
-  //     style: "currency",
-  //     currency,
-  //   }
-  // );
 
   return hotels
     .map((hotel) => {
@@ -83,6 +75,6 @@ type TUseHotelOptions = {
 export const useHotels = ({ currency }: TUseHotelOptions = {}) => {
   return useQuery({
     queryKey: ["hotels", currency ?? "USD"],
-    queryFn: getHotels,
+    queryFn: (context) => getHotels(context.queryKey[1]),
   });
 };

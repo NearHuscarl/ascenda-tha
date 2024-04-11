@@ -10,7 +10,10 @@ export function HotelListItem(props: THotelListItemProps) {
   const { hotel } = props;
 
   return (
-    <div className="p-6 bg-white rounded shadow flex gap-6">
+    <div
+      className="p-6 bg-white rounded shadow flex gap-6"
+      data-testid={`hotel-item-${hotel.id}`}
+    >
       <div className="flex-none w-72 h-full">
         <img src={hotel.photo} alt={hotel.name} className="object-cover" />
       </div>
@@ -27,7 +30,10 @@ export function HotelListItem(props: THotelListItemProps) {
             <Rating className="mt-[-4px]" value={hotel.stars} readOnly />
             <span className="font-bold">{hotel.rating}/10</span>
           </div>
-          <p className="bg-green-50 px-1.5 py-0.5 rounded text-green-500 font-medium">
+          <p
+            className="bg-green-50 px-1.5 py-0.5 rounded text-green-500 font-medium"
+            data-testid={`price`}
+          >
             {hotel.price}
           </p>
         </div>
