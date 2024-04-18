@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import ReactHtmlParser from "react-html-parser";
 import Rating from "@mui/material/Rating";
 import { THotel } from "../api/hotels";
+import { useFilterStore } from "../stores/filters";
 
 type THotelListItemProps = {
   hotel: THotel;
@@ -8,6 +10,8 @@ type THotelListItemProps = {
 
 export function HotelListItem(props: THotelListItemProps) {
   const { hotel } = props;
+  const navigate = useNavigate();
+  const { updateLastVisitedHotel } = useFilterStore();
 
   return (
     <div
@@ -19,7 +23,15 @@ export function HotelListItem(props: THotelListItemProps) {
       </div>
       <div className="flex flex-col justify-between">
         <div>
-          <h2 className="font-bold text-2xl mb-0.5">{hotel.name}</h2>
+          <h1
+            className="font-bold text-2xl mb-0.5"
+            onClick={() => {
+              navigate(`/hotels/${hotel.id}`);
+              updateLastVisitedHotel(hotel);
+            }}
+          >
+            {hotel.name}
+          </h1>
           <p className="text-sm text-gray-500 mb-1">{hotel.address}</p>
           <div className="overflow-hidden line-clamp-2 text-clip">
             {ReactHtmlParser(hotel.description)}
