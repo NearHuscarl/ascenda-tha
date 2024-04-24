@@ -17,7 +17,11 @@ export const useFilterStore = create<TFilterStore>()(
       lastVisitedHotels: [],
       updateLastVisitedHotel: (hotel) => {
         return set((state) => {
-          const next = [...state.lastVisitedHotels, hotel];
+          const hotels = state.lastVisitedHotels.concat(hotel);
+          const hotelIdSet = new Set(hotels.map((h) => h.id));
+          const next = [...hotelIdSet].map(
+            (id) => hotels.find((h) => h.id === id)!
+          );
           if (next.length > 3) {
             next.shift();
           }
